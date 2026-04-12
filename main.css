@@ -5,3 +5,18 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+.hud {
+  position: fixed;
+  inset: 1rem;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.hud-footer {
+  align-self: center;
+}

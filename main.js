@@ -9,6 +9,28 @@ if (!canvas) {
 const inputHandler = new InputHandler();
 const game = new Game(canvas, inputHandler);
 
+const hudScore = document.getElementById("hudScore");
+const hudBest = document.getElementById("hudBest");
+const hudTime = document.getElementById("hudTime");
+
+if (!hudScore || !hudBest || !hudTime) {
+  throw new Error("HUD elements not found");
+}
+
+function formatTimeLeft(seconds) {
+  if (seconds <= 0) return "00:00";
+  const totalMs = Math.floor(seconds * 100);
+  const ss = Math.floor(totalMs / 100);
+  const ms = totalMs % 100;
+  return `${String(ss).padStart(2, "0")}:${String(ms).padStart(2, "0")}`;
+}
+
+function updateHud() {
+  hudScore.textContent = String(game.points);
+  hudBest.textContent = String(game.highScore);
+  hudTime.textContent = formatTimeLeft(game.lifespan);
+}
+
 /**
  * Resize window
  */
@@ -21,6 +43,7 @@ function resize() {
 window.addEventListener("resize", resize);
 
 resize();
+updateHud();
 
 /**
  * Game loop
@@ -40,6 +63,7 @@ function loop(now) {
 
   game.update(deltaTime);
   game.draw();
+  updateHud();
 }
 
 requestAnimationFrame(loop);

@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF- []8" />
-  <meta name="viewport" content="width=device- []width, initial- []scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Planet Walker</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./main.css" />
@@ -11,6 +11,24 @@
 
 <body>
   <canvas id="gameCanvas"></canvas>
+
+  <div id="hud" class="hud">
+    <div>
+      <div>
+        <span>Score</span>
+        <span id="hudScore">0</span>
+      </div>
+      <div>
+        <span>Best</span>
+        <span id="hudBest">0</span>
+      </div>
+    </div>
+
+    <div class="hud-footer">
+      <span>Time left</span>
+      <span id="hudTime">00:00</span>
+    </div>
+  </div>
 
   <script type="module" src="./main.js"></script>
 </body>
