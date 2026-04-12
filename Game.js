@@ -1,5 +1,11 @@
 import { Crater } from "./Crater.js";
-import { getPlanetCanvasLayout, getRandomSpherePosition } from "./utlis.js";
+import {
+  getPlanetCanvasLayout,
+  getRandomSpherePosition,
+  lerp,
+} from "./utlis.js";
+
+const VELOCITY_SMOOTHING = 10;
 
 export class Game {
   constructor(canvas, inputHandler) {
@@ -14,6 +20,7 @@ export class Game {
 
     this.inputHandler = inputHandler;
     this.time = 0;
+    this.smoothedVelocity = [0, 0];
 
     this.craters = Array.from({ length: 50 }, () => {
       return new Crater(
@@ -26,9 +33,20 @@ export class Game {
 
   update(deltaTime) {
     this.time += deltaTime;
-    const rotationVelocity = this.inputHandler.getVelocityVector();
+    const targetVelocity = this.inputHandler.getVelocityVector();
+    const t = 1 - Math.exp(-VELOCITY_SMOOTHING * deltaTime);
+    this.smoothedVelocity[0] = lerp(
+      this.smoothedVelocity[0],
+      targetVelocity[0],
+      t,
+    );
+    this.smoothedVelocity[1] = lerp(
+      this.smoothedVelocity[1],
+      targetVelocity[1],
+      t,
+    );
     this.craters.forEach((object) =>
-      object.update(deltaTime, rotationVelocity),
+      object.update(deltaTime, this.smoothedVelocity),
     );
   }
 

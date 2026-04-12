@@ -1,3 +1,7 @@
+export function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
 export function getPlanetCanvasLayout(canvas) {
   const width = canvas.width;
   const height = canvas.height;
