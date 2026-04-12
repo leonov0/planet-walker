@@ -1,4 +1,5 @@
 import { InputHandler } from "./InputHandler.js";
+import { Game } from "./Game.js";
 
 const canvas = document.getElementById("gameCanvas");
 if (!canvas) {
@@ -11,6 +12,7 @@ if (!ctx) {
 }
 
 const inputHandler = new InputHandler();
+const game = new Game(canvas, inputHandler);
 
 /**
  * Resize window
@@ -40,6 +42,8 @@ function loop(now) {
 
   const deltaTime = (now - lastTime) / 1000;
   lastTime = now;
+
+  game.update(deltaTime);
 }
 
 requestAnimationFrame(loop);
