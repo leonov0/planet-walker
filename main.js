@@ -1,3 +1,5 @@
+import { InputHandler } from "./InputHandler.js";
+
 const canvas = document.getElementById("gameCanvas");
 if (!canvas) {
   throw new Error('Canvas with id "gameCanvas" not found');
@@ -7,6 +9,8 @@ const ctx = canvas.getContext("2d");
 if (!ctx) {
   throw new Error("2D rendering context is not available");
 }
+
+const inputHandler = new InputHandler();
 
 /**
  * Resize window
