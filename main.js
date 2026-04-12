@@ -8,6 +8,23 @@ if (!ctx) {
   throw new Error("2D rendering context is not available");
 }
 
+/**
+ * Resize window
+ */
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", resize);
+
+resize();
+
+/**
+ * Game loop
+ */
+
 const MIN_FRAME_MS = 1000 / 120; // 120 FPS
 
 let lastTime = performance.now();
