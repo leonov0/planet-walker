@@ -6,11 +6,6 @@ if (!canvas) {
   throw new Error('Canvas with id "gameCanvas" not found');
 }
 
-const ctx = canvas.getContext("2d");
-if (!ctx) {
-  throw new Error("2D rendering context is not available");
-}
-
 const inputHandler = new InputHandler();
 const game = new Game(canvas, inputHandler);
 
@@ -44,6 +39,7 @@ function loop(now) {
   lastTime = now;
 
   game.update(deltaTime);
+  game.draw();
 }
 
 requestAnimationFrame(loop);
