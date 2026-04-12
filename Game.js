@@ -34,6 +34,24 @@ export class Game {
     this.ctx.fillRect(0, 0, width, height);
 
     this.ctx.beginPath();
+    this.ctx.arc(centerX, centerY, radius + 20, 0, 2 * Math.PI);
+    const gradient = this.ctx.createRadialGradient(
+      centerX,
+      centerY,
+      radius,
+      centerX,
+      centerY,
+      radius + 20,
+    );
+    gradient.addColorStop(0, "green");
+    gradient.addColorStop(0.1, "lightgreen");
+    gradient.addColorStop(0.2, "black");
+    gradient.addColorStop(0.25, "darkblue");
+    gradient.addColorStop(1, "black");
+    this.ctx.fillStyle = gradient;
+    this.ctx.fill();
+
+    this.ctx.beginPath();
     this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     const innerGradient = this.ctx.createRadialGradient(
       centerX - radius * 0.5,
