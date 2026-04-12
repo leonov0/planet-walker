@@ -18,23 +18,23 @@ Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) s
 
 ### Core Game Rendering (3D Canvas)
 
-- [] Implement a 3D planet rendered as a sphere using HTML5 Canvas 2D API
-- [] The planet must be rendered with a radial gradient (green tones) to give a 3D shaded appearance
-- [] The planet surface must have randomly generated features (craters and patches) projected onto the sphere using 3D rotation math
-- [] Implement an atmosphere glow effect extending slightly beyond the planet edge
-- [] Render a starfield background (300 stars) distributed across a sky-sphere that slowly rotates with the planet for a parallax effect
+- [x] Implement a 3D planet rendered as a sphere using HTML5 Canvas 2D API
+- [x] The planet must be rendered with a radial gradient (green tones) to give a 3D shaded appearance
+- [x] The planet surface must have randomly generated features (craters and patches) projected onto the sphere using 3D rotation math
+- [x] Implement an atmosphere glow effect extending slightly beyond the planet edge
+- [x] Render a starfield background (300 stars) distributed across a sky-sphere that slowly rotates with the planet for a parallax effect
 
 ### Player Character
 
-- [] The player is always rendered at the **center of the screen** — it never moves
-- [] The planet rotates beneath the player in response to input, creating the illusion of movement
-- [] The character consists of: a helmet (filled circle), a visor with a reflection highlight, a torso, arms, and legs
+- [x] The player is always rendered at the **center of the screen** — it never moves
+- [x] The planet rotates beneath the player in response to input, creating the illusion of movement
+- [x] The character consists of: a helmet (filled circle), a visor with a reflection highlight, a torso, arms, and legs
 
 ### Planet Rotation & Controls
 
-- [] Player input rotates the planet using **Arrow keys**
-- [] The planet rotates; the player character stays fixed
-- [] Movement must be smooth with acceleration and deceleration (velocity lerp, no instant changes)
+- [x] Player input rotates the planet using **Arrow keys**
+- [x] The planet rotates; the player character stays fixed
+- [x] Movement must be smooth with acceleration and deceleration (velocity lerp, no instant changes)
 
 ### Collectibles (Crystals)
 
