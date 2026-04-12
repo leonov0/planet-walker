@@ -58,14 +58,14 @@ Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) s
 ### Scoring System
 
 - [x] Each crystal collected: **100 points**
-- [] Current score displayed during gameplay
+- [x] Current score displayed during gameplay
 - [x] High score persists across sessions using `localStorage`
 
 ### Game Duration & Difficulty
 
 - [x] The game has no fixed time limit — the goal is to survive as long as possible
 - [x] Player dies if a crystal has not been collected for **5 seconds**
-- [] A countdown timer (SS:MS format) shows how long until game over — it resets to 5s on each collection
+- [x] A countdown timer (SS:MS format) shows how long until game over — it resets to 5s on each collection
 - [] **Difficulty scales over time:** crystal lifespan shrinks the longer the player survives, making crystals disappear faster and forcing quicker reactions
 
 ### User Interface
@@ -85,10 +85,10 @@ The game consists of **3 screens**:
 
 #### Screen 2: Game Screen (HUD)
 
-- [] Full-screen canvas showing the planet, player, crystals, and starfield
-- [] **Top-left:** Current score
-- [] **Bottom-center (or top):** Countdown timer in SS:MSMS format
-- [] Player astronaut always visible at screen center
+- [x] Full-screen canvas showing the planet, player, crystals, and starfield
+- [x] **Top-left:** Current score
+- [x] **Bottom-center (or top):** Countdown timer in SS:MSMS format
+- [x] Player astronaut always visible at screen center
 
 ---
 
@@ -114,7 +114,7 @@ The game consists of **3 screens**:
 
 - [] **Screen transitions:** Fade in/out between screens (minimum 300ms)
 - [] **Score animation:** Final score counts up from 0 on the game over screen
-- [] **Object movement:** All rotation and collectible animations must be smooth (no teleporting)
+- [x] **Object movement:** All rotation and collectible animations must be smooth (no teleporting)
 - [] **Button interactions:** Hover and active states on all buttons
 
 ### Audio
@@ -127,9 +127,9 @@ The game consists of **3 screens**:
 
 ## Technical Constraints
 
-- [] **Technologies:** HTML, CSS, and JavaScript only
-- [] **No external libraries:** All rendering, charts, animations, and audio must be custom-implemented
-- [] **Data persistence:** Use `localStorage` for high score
-- [] **Responsive:** Must work correctly on screens from 1024px to 1920px width
-- [] **Browser support:** Google Chrome (latest version)
-- [] **Single page:** The entire game in a single HTML page (separate CSS/JS files are allowed)
+- [x] **Technologies:** HTML, CSS, and JavaScript only
+- [x] **No external libraries:** All rendering, charts, animations, and audio must be custom-implemented
+- [x] **Data persistence:** Use `localStorage` for high score
+- [x] **Responsive:** Must work correctly on screens from 1024px to 1920px width
+- [x] **Browser support:** Google Chrome (latest version)
+- [x] **Single page:** The entire game in a single HTML page (separate CSS/JS files are allowed)
