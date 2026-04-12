@@ -8,7 +8,8 @@ export function getPlanetCanvasLayout(canvas) {
   const centerX = width * 0.5;
   const centerY = height * 0.5;
   const planetRadius = Math.min(width, height) * 0.4;
-  return { width, height, centerX, centerY, planetRadius };
+  const skyRadius = Math.max(width, height);
+  return { width, height, centerX, centerY, planetRadius, skyRadius };
 }
 
 export function rotateSpherePoint(point, rotationVelocity, deltaTime) {

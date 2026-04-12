@@ -29,6 +29,14 @@ export class Game {
         0.1 + Math.random() * 0.9,
       );
     });
+
+    this.stars = Array.from({ length: 300 }, () => {
+      return new Crater(
+        getRandomSpherePosition(),
+        0.1 + Math.random() * 0.9,
+        0.1 + Math.random() * 0.9,
+      );
+    });
   }
 
   update(deltaTime) {
@@ -48,19 +56,20 @@ export class Game {
     this.craters.forEach((object) =>
       object.update(deltaTime, this.smoothedVelocity),
     );
+    this.stars.forEach((object) =>
+      object.update(deltaTime, this.smoothedVelocity),
+    );
   }
 
   draw() {
     const layout = getPlanetCanvasLayout(this.canvas);
+    this._drawStars(layout);
     this._drawPlanet(layout);
     this._drawCraters(layout);
   }
 
   _drawPlanet(layout) {
-    const { width, height, centerX, centerY, planetRadius: radius } = layout;
-
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0, 0, width, height);
+    const { centerX, centerY, planetRadius: radius } = layout;
 
     this.ctx.beginPath();
     this.ctx.arc(centerX, centerY, radius + 20, 0, 2 * Math.PI);
@@ -119,6 +128,37 @@ export class Game {
       );
 
       this.ctx.fillStyle = `rgba(0, 100, 0, ${crater.brightness})`;
+      this.ctx.fill();
+    });
+  }
+
+  _drawStars(layout) {
+    const { width, height, centerX, centerY, skyRadius } = layout;
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0, 0, width, height);
+
+    this.stars.forEach((star) => {
+      if (star.position.z > 0) return;
+
+      const positionX = star.position.x * skyRadius;
+      const positionY = star.position.y * skyRadius;
+      const distFromCenter = Math.hypot(positionX, positionY);
+      const starRadius =
+        skyRadius * star.size * 0.005 * Math.abs(star.position.z);
+      const maxRadius = skyRadius - distFromCenter;
+      const radius = Math.min(starRadius, Math.max(0, maxRadius));
+
+      this.ctx.beginPath();
+      this.ctx.arc(
+        centerX + positionX,
+        centerY + positionY,
+        radius,
+        0,
+        2 * Math.PI,
+      );
+
+      this.ctx.fillStyle = `rgba(255, 255, 255, ${star.brightness})`;
       this.ctx.fill();
     });
   }
