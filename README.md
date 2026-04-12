@@ -8,7 +8,7 @@
 
 ## Project Overview
 
-Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) stands on a rotating planet and collects crystals that appear on its surface. The planet rotates in response to player input while the character remains fixed at the center of the screen. Crystals expire over time — the player must keep collecting to survive. The game features a 3D sphere projection, bobbing collectibles with expiry animations, a parallax starfield, and a score- []over- []time chart on the results screen.
+Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) stands on a rotating planet and collects crystals that appear on its surface. The planet rotates in response to player input while the character remains fixed at the center of the screen. Crystals expire over time — the player must keep collecting to survive. The game features a 3D sphere projection, bobbing collectibles with expiry animations, a parallax starfield, and a score-over-time chart on the results screen.
 
 **Time allowed:** 3 hours
 
