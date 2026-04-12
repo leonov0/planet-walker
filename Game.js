@@ -66,6 +66,7 @@ export class Game {
     this._drawStars(layout);
     this._drawPlanet(layout);
     this._drawCraters(layout);
+    this._drawPlayer(layout);
   }
 
   _drawPlanet(layout) {
@@ -161,5 +162,64 @@ export class Game {
       this.ctx.fillStyle = `rgba(255, 255, 255, ${star.brightness})`;
       this.ctx.fill();
     });
+  }
+
+  _drawPlayer(layout) {
+    const { centerX, centerY, planetRadius } = layout;
+    const scale = planetRadius * 0.05;
+
+    const torsoWidth = scale * 2;
+    const torsoHeight = scale * 0.4;
+    const headY = centerY - scale * 1.1;
+    const legWidth = scale * 0.4;
+    const legHeight = scale * 2.2;
+    const footSpread = (22 * Math.PI) / 180;
+    const hipY = centerY - scale * 0.3;
+    const legOffsetX = scale * 0.42;
+
+    const drawLeg = (hipX, angle) => {
+      this.ctx.save();
+      this.ctx.translate(hipX, hipY);
+      this.ctx.rotate(angle);
+      this.ctx.fillRect(-legWidth / 2, 0, legWidth, legHeight);
+      this.ctx.restore();
+    };
+
+    this.ctx.fillStyle = "cornflowerblue";
+    this.ctx.beginPath();
+    this.ctx.arc(centerX, headY, scale, 0, 2 * Math.PI);
+    this.ctx.rect(
+      centerX - torsoWidth / 2,
+      centerY - torsoHeight / 2,
+      torsoWidth,
+      torsoHeight,
+    );
+    this.ctx.fill();
+
+    drawLeg(centerX - legOffsetX, -footSpread);
+    drawLeg(centerX + legOffsetX, footSpread);
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "lightblue";
+    this.ctx.arc(centerX, headY, scale * 0.8, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    const lightX = centerX - scale * 0.2;
+    const lightY = headY - scale * 0.2;
+    const lightRadius = scale * 0.4;
+    const gradient = this.ctx.createRadialGradient(
+      lightX,
+      lightY,
+      0,
+      lightX,
+      lightY,
+      lightRadius,
+    );
+    gradient.addColorStop(0, "white");
+    gradient.addColorStop(1, "lightblue");
+    this.ctx.beginPath();
+    this.ctx.fillStyle = gradient;
+    this.ctx.arc(lightX, lightY, lightRadius, 0, 2 * Math.PI);
+    this.ctx.fill();
   }
 }
