@@ -52,19 +52,19 @@ Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) s
 
 ### Collision Detection
 
-- [] A crystal is collected when its screen-space distance from the player (center of screen) is within a small threshold
-- [] Only front-facing crystals (z > 0) can be collected
+- [x] A crystal is collected when its screen-space distance from the player (center of screen) is within a small threshold
+- [x] Only front-facing crystals (z > 0) can be collected
 
 ### Scoring System
 
-- [] Each crystal collected: **100 points**
+- [x] Each crystal collected: **100 points**
 - [] Current score displayed during gameplay
-- [] High score persists across sessions using `localStorage`
+- [x] High score persists across sessions using `localStorage`
 
 ### Game Duration & Difficulty
 
-- [] The game has no fixed time limit — the goal is to survive as long as possible
-- [] Player dies if a crystal has not been collected for **5 seconds**
+- [x] The game has no fixed time limit — the goal is to survive as long as possible
+- [x] Player dies if a crystal has not been collected for **5 seconds**
 - [] A countdown timer (SS:MS format) shows how long until game over — it resets to 5s on each collection
 - [] **Difficulty scales over time:** crystal lifespan shrinks the longer the player survives, making crystals disappear faster and forcing quicker reactions
 

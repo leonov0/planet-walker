@@ -7,6 +7,17 @@ import {
 } from "./utlis.js";
 
 const VELOCITY_SMOOTHING = 10;
+const MAX_LIFESPAN = 5;
+
+function loadHighScore() {
+  const raw = localStorage.getItem("highScore");
+  if (raw == null) return 0;
+  return Number.parseInt(raw, 10);
+}
+
+function saveHighScore(value) {
+  localStorage.setItem("highScore", String(value));
+}
 
 export class Game {
   constructor(canvas, inputHandler) {
@@ -43,10 +54,18 @@ export class Game {
       return new Crystal(getRandomSpherePosition());
     });
     this.crystalCooldown = 2.5;
+
+    this.points = 0;
+    this.highScore = loadHighScore();
+
+    this.lifespan = MAX_LIFESPAN;
   }
 
   update(deltaTime) {
+    if (this.lifespan <= 0) return;
+
     this.time += deltaTime;
+
     const targetVelocity = this.inputHandler.getVelocityVector();
     const t = 1 - Math.exp(-VELOCITY_SMOOTHING * deltaTime);
     this.smoothedVelocity[0] = lerp(
@@ -72,6 +91,24 @@ export class Game {
     }
 
     this.crystals = this.crystals.filter((crystal) => crystal.lifespan > 0);
+
+    const countBeforeCollision = this.crystals.length;
+    this.crystals = this.crystals.filter(
+      (crystal) => crystal.position.z < 0.99,
+    );
+    const diff = countBeforeCollision - this.crystals.length;
+
+    this.points += diff * 100;
+    if (this.points > this.highScore) {
+      this.highScore = this.points;
+      saveHighScore(this.highScore);
+    }
+
+    this.lifespan -= deltaTime;
+
+    if (diff) {
+      this.lifespan = MAX_LIFESPAN;
+    }
   }
 
   draw() {
