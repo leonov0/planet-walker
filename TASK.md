@@ -38,17 +38,17 @@ Develop a 3D space survival game using HTML5 Canvas where a player (astronaut) s
 
 ### Collectibles (Crystals)
 
-- [] Crystals spawn at random positions on the planet surface
-- [] Maximum **6 crystals** can exist at once; a new crystal spawns every **2.5 seconds**
-- [] **3 crystals** spawn immediately when the game starts
-- [] Crystals are rendered as yellow diamond shapes with a glow effect
-- [] Crystals must have some kind of animation
-- [] Crystal opacity and size scale with their z-depth (appear larger/brighter when facing the player)
-- [] Crystals on the far side of the planet (z ≤ 0) are not drawn
-- [] Each crystal has a **lifespan** — it expires and disappears if not collected in time
-  - [] Lifespan starts at **8 seconds** and shrinks as the player survives longer (minimum **3 seconds**)
-  - [] At 40% life remaining the crystal starts fading out and the glow turns red/orange
-  - [] At 15% life remaining the crystal flickers rapidly as a final warning
+- [x] Crystals spawn at random positions on the planet surface
+- [x] Maximum **6 crystals** can exist at once; a new crystal spawns every **2.5 seconds**
+- [x] **3 crystals** spawn immediately when the game starts
+- [x] Crystals are rendered as yellow diamond shapes with a glow effect
+- [x] Crystals must have some kind of animation
+- [x] Crystal opacity and size scale with their z-depth (appear larger/brighter when facing the player)
+- [x] Crystals on the far side of the planet (z ≤ 0) are not drawn
+- [x] Each crystal has a **lifespan** — it expires and disappears if not collected in time
+  - [x] Lifespan starts at **8 seconds** and shrinks as the player survives longer (minimum **3 seconds**)
+  - [x] At 40% life remaining the crystal starts fading out and the glow turns red/orange
+  - [x] At 15% life remaining the crystal flickers rapidly as a final warning
 
 ### Collision Detection
 

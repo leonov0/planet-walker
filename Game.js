@@ -1,4 +1,5 @@
 import { Crater } from "./Crater.js";
+import { Crystal } from "./Crystal.js";
 import {
   getPlanetCanvasLayout,
   getRandomSpherePosition,
@@ -37,6 +38,11 @@ export class Game {
         0.1 + Math.random() * 0.9,
       );
     });
+
+    this.crystals = Array.from({ length: 3 }, () => {
+      return new Crystal(getRandomSpherePosition());
+    });
+    this.crystalCooldown = 2.5;
   }
 
   update(deltaTime) {
@@ -53,12 +59,19 @@ export class Game {
       targetVelocity[1],
       t,
     );
-    this.craters.forEach((object) =>
+
+    const toUpdate = [...this.craters, ...this.stars, ...this.crystals];
+    toUpdate.forEach((object) =>
       object.update(deltaTime, this.smoothedVelocity),
     );
-    this.stars.forEach((object) =>
-      object.update(deltaTime, this.smoothedVelocity),
-    );
+
+    this.crystalCooldown -= deltaTime;
+    if (this.crystalCooldown <= 0 && this.crystals.length < 6) {
+      this.crystals.push(new Crystal(getRandomSpherePosition()));
+      this.crystalCooldown += 2.5;
+    }
+
+    this.crystals = this.crystals.filter((crystal) => crystal.lifespan > 0);
   }
 
   draw() {
@@ -67,6 +80,7 @@ export class Game {
     this._drawPlanet(layout);
     this._drawCraters(layout);
     this._drawPlayer(layout);
+    this._drawCrystals(layout);
   }
 
   _drawPlanet(layout) {
@@ -221,5 +235,72 @@ export class Game {
     this.ctx.fillStyle = gradient;
     this.ctx.arc(lightX, lightY, lightRadius, 0, 2 * Math.PI);
     this.ctx.fill();
+  }
+
+  _drawCrystals(layout) {
+    const { centerX, centerY, planetRadius } = layout;
+
+    this.crystals.forEach((crystal) => {
+      if (crystal.position.z < 0) return;
+
+      const positionX = crystal.position.x * planetRadius;
+      const positionY = crystal.position.y * planetRadius;
+      const scale = planetRadius * 0.05 * crystal.position.z;
+      const warnPulse =
+        crystal.lifespan < crystal.MAX_LIFESPAN * 0.15
+          ? 0.15 * (1 + Math.sin(crystal.pulsePhase))
+          : 0;
+      let opacity =
+        warnPulse +
+        Math.min(1, Math.max(0, crystal.lifespan / (8 * 0.4))) *
+          crystal.position.z *
+          0.7;
+
+      this.ctx.beginPath();
+      const gradient = this.ctx.createRadialGradient(
+        centerX + positionX,
+        centerY + positionY,
+        0,
+        centerX + positionX,
+        centerY + positionY,
+        scale * 3,
+      );
+      if (crystal.lifespan / (8 * 0.4) > 1) {
+        gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.5)");
+        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+      } else {
+        gradient.addColorStop(0, "rgba(255, 0, 0, 0.5)");
+        gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
+      }
+      this.ctx.beginPath();
+      this.ctx.fillStyle = gradient;
+      this.ctx.arc(
+        centerX + positionX,
+        centerY + positionY,
+        scale * 3,
+        0,
+        2 * Math.PI,
+      );
+      this.ctx.fill();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(centerX + positionX, centerY + positionY - 2 * scale);
+      this.ctx.lineTo(centerX + positionX + 1 * scale, centerY + positionY);
+      this.ctx.lineTo(centerX + positionX, centerY + positionY + 2 * scale);
+      this.ctx.lineTo(centerX + positionX - 1 * scale, centerY + positionY);
+      this.ctx.fillStyle = `rgba(255, 255, 0, ${opacity})`;
+      this.ctx.fill();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(centerX + positionX, centerY + positionY - 2 * scale);
+      this.ctx.lineTo(centerX + positionX + 1 * scale, centerY + positionY);
+      this.ctx.lineTo(centerX + positionX, centerY + positionY + 2 * scale);
+      this.ctx.lineTo(centerX + positionX - 1 * scale, centerY + positionY);
+      this.ctx.lineTo(centerX + positionX, centerY + positionY - 2 * scale);
+      this.ctx.closePath();
+      this.ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+      this.ctx.lineWidth = 2;
+      this.ctx.stroke();
+    });
   }
 }
